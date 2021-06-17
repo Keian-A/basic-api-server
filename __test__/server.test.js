@@ -62,7 +62,7 @@ describe('testing the server', () => {
   test('testing a 200 for POST `/car`', async () => {
     const response = await request.post('/car').send({
       name: 'test',
-      calories: 100
+      manufacturer: 'test'
     });
     expect(response.status).toEqual(200);
     expect(response.body.name).toEqual('test');
