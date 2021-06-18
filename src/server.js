@@ -2,8 +2,8 @@
 
 const express = require('express');
 const cors = require('cors');
-const foodRoutes = require('./routes/food.js');
-const carRoutes = require('./routes/car.js');
+const peopleRoutes = require('./routes/people.js');
+const clothesRoutes = require('./routes/clothes.js');
 
 const app = express();
 
@@ -11,8 +11,8 @@ app.use(cors());
 app.use(express.json());
 
 // hook up Resouce routers
-app.use(foodRoutes);
-app.use(carRoutes);
+app.use(peopleRoutes);
+app.use(clothesRoutes);
 
 module.exports = {
   app: app,

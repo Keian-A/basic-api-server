@@ -8,7 +8,6 @@ class Collection {
 
   read(id, options = {}) {
     let modelParams = { ...options };
-
     if (id) {
       modelParams.where = { id: id };
       return this.model.findOne(modelParams);
@@ -22,11 +21,7 @@ class Collection {
   }
 
   async update(id, json) {
-    let row = await this.model.findOne({
-      where: {
-        id: id,
-      }
-    });
+    let row = await this.model.findOne({ where: { id: id, } });
     let updatedRow = await row.update(json);
     return updatedRow;
   }
@@ -34,6 +29,7 @@ class Collection {
   delete(id) {
     return this.model.destroy({ where: { id: id } });
   }
+
   createAssociation(type, model, options) {
     console.log(type, model, options);
     try {

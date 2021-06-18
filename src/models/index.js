@@ -18,11 +18,11 @@ const clothes = Clothes(sequelize, DataTypes);
 const peopleCollection = new Collection('people', people);
 const clothesCollection = new Collection('clothes', clothes);
 
-peopleCollection.createAssociation('hasMany', clothesCollection.model, { foreignKey: 'customerId', sourceKey: 'id' });
-clothesCollection.createAssociation('belongsTo', peopleCollection.model, { foreignKey: 'customerId', targetKey: 'id' });
+peopleCollection.createAssociation('hasMany', clothesCollection.model, { foreignKey: 'clothesId', sourceKey: 'id' });
+clothesCollection.createAssociation('belongsTo', peopleCollection.model, { foreignKey: 'peopleId', targetKey: 'id' });
 
 module.exports = {
   db: sequelize,
-  people: people,
-  clothes: clothes,
+  people: peopleCollection,
+  clothes: clothesCollection,
 }

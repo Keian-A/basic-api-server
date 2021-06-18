@@ -8,7 +8,7 @@ const People = (sequelize, DataTypes) => {
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     }
   });
 }
