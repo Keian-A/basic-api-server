@@ -17,73 +17,74 @@ afterAll(async () => {
 
 describe('testing the server', () => {
 
-  // ALL THE TESTS FOR THE FOOD ROUTE
-  test('testing a 200 for GET `/food`', async () => {
-    const response = await request.get('/food');
+  // ALL THE TESTS FOR THE PEOPLE ROUTE
+  test('testing a 200 for GET `/people`', async () => {
+    const response = await request.get('/people');
     expect(response.status).toEqual(200);
-    expect(response.body).toEqual([]);
+    expect(Array.isArray(response.body)).toEqual(true);
   });
 
-  test('testing a 200 for POST `/food`', async () => {
-    const response = await request.post('/food').send({
-      name: 'test',
-      calories: 100
+  test('testing a 200 for POST `/people`', async () => {
+    const response = await request.post('/people').send({
+      firstName: 'test',
+      lastName: 'test',
     });
     expect(response.status).toEqual(200);
-    expect(response.body.name).toEqual('test');
+    expect(response.body.firstName).toEqual('test');
+    expect(response.body.lastName).toEqual('test');
   });
 
-  test('testing a 200 for GET `/food/:foodId`', async () => {
-    const response = await request.get(`/food/1`);
+  test('testing a 200 for GET `/people/:peopleId`', async () => {
+    const response = await request.get(`/people/1`);
     expect(response.status).toEqual(200);
-    expect(response.body.name).toEqual('test');
+    expect(response.body.firstName).toEqual('test');
   });
 
-  test('testing a 200 for PUT `/food/:foodId`', async () => {
-    const response = await request.put('/food/1').send({
-      name: 'new test',
+  // test('testing a 200 for PUT `/people/:peopleId`', async () => {
+  //   const response = await request.put('/people/1').send({
+  //     firstName: 'new test',
+  //   });
+  //   expect(response.status).toEqual(200);
+  //   expect(response.body.firstName).toEqual('new test');
+  // });
+
+  // test('testing a 204 for DELETE `/people/:peopleId`', async () => {
+  //   const response = await request.delete('/people/1');
+  //   expect(response.status).toEqual(204);
+  // });
+
+  // ALL TESTS FOR CLOTHES ROUTE
+  test('testing a 200 for GET `/clothes`', async () => {
+    const response = await request.get('/clothes');
+    expect(response.status).toEqual(200);
+    expect(Array.isArray(response.body)).toEqual(true);
+  });
+
+  test('testing a 200 for POST `/clothes`', async () => {
+    const response = await request.post('/clothes').send({
+      clothing: 'test',
     });
     expect(response.status).toEqual(200);
-    expect(response.body.name).toEqual('new test');
+    expect(response.body.clothing).toEqual('test');
   });
 
-  test('testing a 200 for DELETE `/food/:foodId`', async () => {
-    const response = await request.delete('/food/1');
-    expect(response.status).toEqual(204);
-  });
-
-  // ALL TESTS FOR CAR ROUTE
-  test('testing a 200 for GET `/car`', async () => {
-    const response = await request.get('/car');
+  test('testing a 200 for GET `/clothes/:clothesId`', async () => {
+    const response = await request.get(`/clothes/1`);
     expect(response.status).toEqual(200);
-    expect(response.body).toEqual([]);
+    expect(response.body.clothing).toEqual('test');
   });
 
-  test('testing a 200 for POST `/car`', async () => {
-    const response = await request.post('/car').send({
-      name: 'test',
-      calories: 100
+  test('testing a 200 for PUT `/clothes/:clothesId`', async () => {
+    const response = await request.put('/clothes/1').send({
+      clothing: 'new test',
     });
     expect(response.status).toEqual(200);
-    expect(response.body.name).toEqual('test');
+    expect(response.body.clothing).toEqual('new test');
   });
 
-  test('testing a 200 for GET `/car/:carId`', async () => {
-    const response = await request.get(`/car/1`);
-    expect(response.status).toEqual(200);
-    expect(response.body.name).toEqual('test');
-  });
-
-  test('testing a 200 for PUT `/car/:carId`', async () => {
-    const response = await request.put('/car/1').send({
-      name: 'new test',
-    });
-    expect(response.status).toEqual(200);
-    expect(response.body.name).toEqual('new test');
-  });
-
-  test('testing a 200 for DELETE `/car/:carId`', async () => {
-    const response = await request.delete('/car/1');
-    expect(response.status).toEqual(204);
-  });
+  // test('testing a 204 for DELETE `/clothes/:clothesId`', async () => {
+  //   await request.delete('/clothes/1');
+  //   const testingVar = await request.get(`/clothes/1`);
+  //   expect(testingVar).toEqual(false);
+  // });
 });

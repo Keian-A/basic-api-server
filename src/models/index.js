@@ -1,29 +1,28 @@
 'use strict';
 
 require('dotenv').config();
-// heroku uses this naming convention
+
 const DATABASE_URL = process.env.DATABASE_URL || 'sqlite:memory:';
 
-// We added this to our script, so that we can provide some info about our environement (Dev / test / production)
-const NODE_ENV = process.env.NODE_ENV;
-
-// Sequelize lets us create data models, DataType represent the Types of data we can create in SQL
+const People = require('./people.js');
+const Clothes = require('./clothes.js');
+const Collection = require('./collection.js');
 const { Sequelize, DataTypes } = require('sequelize');
-const food = require('./food.js');
-const car = require('./car.js');
 
-// analogous to the express()
-let sequelize = new Sequelize(DATABASE_URL, NODE_ENV === 'production' ? {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    }
-  }
-} : {});
+const sequelize = new Sequelize(DATABASE_URL);
+
+const people = People(sequelize, DataTypes);
+const clothes = Clothes(sequelize, DataTypes);
+
+// Collection instances
+const peopleCollection = new Collection('people', people);
+const clothesCollection = new Collection('clothes', clothes);
+
+peopleCollection.createAssociation('hasMany', clothesCollection.model, { foreignKey: 'clothesId', sourceKey: 'id' });
+clothesCollection.createAssociation('belongsTo', peopleCollection.model, { foreignKey: 'peopleId', targetKey: 'id' });
 
 module.exports = {
-  db: sequelize, // we need to use this in our entry file, and our test file to tell our environments we are preparing to do CRUD.
-  food: food(sequelize, DataTypes),
-  car: car(sequelize, DataTypes),
+  db: sequelize,
+  people: peopleCollection,
+  clothes: clothesCollection,
 }
